@@ -1,1 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Roles Section</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Self-contained styles to prevent conflicts */
+        .job-roles-section {
+            <!-- background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c); -->
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            <!-- padding: 40px 20px; -->
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            background: #fff8f0;
+        }
+        
+        .job-roles-container {
+            max-width: 1400px;
+            width: 100%;
+            <!-- background: rgba(255, 255, 255, 0.95); -->
 
+            border-radius: 25px;
+            overflow: hidden;
+            <!-- box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); -->
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            background: #fff8f0;
+        }
+        
+        .section-header {
+            <!-- padding: 60px 40px 40px; -->
+            text-align: center;
+            position: relative;
+            background: transparent;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .job-text {
+            font-family: Roboto, sans-serif;
+            color: #2d3748;
+            text-shadow: 0 2px 4px rgba(255, 121, 1, 0.3);
+            position: relative;
+        }
+        
+        .roles-text {
+             font-family: Roboto, sans-serif;
+            color: #2d3748;
+            position: relative;
+        }
+        
+        .divider {
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff7901, transparent);
+            border-radius: 10px;
+        }
+        
+        .content-section {
+            display: flex;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 0 0;
+        }
+        
+        .btn-container {
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        /* Zigzag pattern for buttons */
+        .left-buttons .btn-wrapper:nth-child(odd) {
+            transform: translateX(-30px);
+        }
+        
+        .left-buttons .btn-wrapper:nth-child(even) {
+            transform: translateX(30px);
+        }
+        
+        .right-buttons .btn-wrapper:nth-child(odd) {
+            transform: translateX(30px);
+        }
+        
+        .right-buttons .btn-wrapper:nth-child(even) {
+            transform: translateX(-30px);
+        }
+        
+        .btn-wrapper {
+            transition: transform 0.4s ease, opacity 0.3s ease;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .role-btn {
+            width: 100%;
+            max-width: 300px;
+            background: linear-gradient(145deg, #ffffff, #f5f7ff);
+            border: none;
+            padding: 10px 10px;
+            border-radius: 18px;
+            color: #2d3748;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1),
+                0 4px 15px rgba(255, 121, 1, 0.15),
+                inset 0 -2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .role-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .role-btn:hover:before {
+            transform: translateX(100%);
+        }
+        
+        .role-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 121, 1, 0.3),
+                0 8px 20px rgba(255, 121, 1, 0.2);
+            color: #ff7901;
+        }
+        
+        .role-btn:hover .btn-icon {
+            transform: scale(1.15) rotate(5deg);
+            background: linear-gradient(145deg, #ff7901, #ff5e00);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 121, 1, 0.4);
+        }
+        
+        .btn-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #f0f4ff, #e2e8ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.6rem;
+            color: #ff7901;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-text {
+            flex: 1;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .center-content {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 2;
+        }
+        
+        .girl-image {
+            height: 450px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.25));
+            z-index: 3;
+            transform-origin: bottom center;
+        }
+        
+        <!-- .ground-shadow {
+            position: absolute;
+            bottom: 0;
+            width: 250px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            filter: blur(10px);
+            z-index: 1;
+            animation: shadow-pulse 3s infinite ease-in-out;
+        } -->
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff7901, #ff5e00);
+            opacity: 0.1;
+            animation: move 18s infinite linear;
+            z-index: 0;
+            filter: blur(5px);
+        }
+        
+        .shape-1 {
+            width: 220px;
+            height: 220px;
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        .shape-3 {
+            width: 120px;
+            height: 120px;
+            top: 35%;
+            right: 20%;
+            animation-delay: 6s;
+        }
+        
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 9s;
+        }
+        
+        .zigzag-line {
+            position: absolute;
+            height: 100%;
+            top: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #ff7901, transparent);
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .zigzag-left {
+            left: 35%;
+        }
+        
+        .zigzag-right {
+            right: 35%;
+        }
+        
+        .zigzag-line:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff7901;
+            top: 0;
+            left: -9px;
+            opacity: 0.3;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(2deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        
+        @keyframes shadow-pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.25;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0.15;
+            }
+        }
+        
+        @keyframes move {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(50px, -40px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+        }
+        
+        @media (max-width: 1100px) {
+            .content-section {
+                min-height: 600px;
+            }
+            
+            .btn-container {
+                width: 32%;
+            }
+            
+            .girl-image {
+                height: 480px;
+            }
+            
+            .section-title {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .content-section {
+                flex-direction: column;
+                padding: 20px 0 40px;
+            }
+            
+            .btn-container {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                padding: 20px 30px;
+            }
+            
+            .left-buttons .btn-wrapper,
+            .right-buttons .btn-wrapper {
+                transform: none !important;
+                width: calc(50% - 15px);
+            }
+            
+            .center-content {
+                width: 100%;
+                padding: 20px 0;
+                min-height: 100px;
+                order: -1;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .role-btn {
+                max-width: 100%;
+            }
+            
+            .girl-image {
+                height: 350px;
+            }
+            
+            .zigzag-line {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .section-header {
+                padding: 40px 20px 30px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .divider {
+                width: 80%;
+                height: 3px;
+            }
+            
+            .role-btn {
+                font-size: 1.1rem;
+                padding: 16px 20px;
+            }
+            
+            .btn-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .girl-image {
+                height: 280px;
+            }
+            
+            .btn-container {
+                padding: 15px;
+            }
+            
+            .left-buttons .btn-wrapper,
+            .right-buttons .btn-wrapper {
+                width: 100%;
+            }
+            .btn-wrapper{
+                margin-right: 30px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .role-btn {
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+            
+            .btn-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .btn-wrapper{
+                margin-right: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="job-roles-section">
+        <div class="job-roles-container">
+            <div class="section-header">
+                <div class="section-title">
+                    <div class="divider"></div>
+                    <div>
+                        <span class="job-text">Job</span>
+                        <span class="roles-text">Roles</span>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="btn-container left-buttons">
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            <div class="btn-text">Analytics Consult</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                            <div class="btn-text">BI Analyst</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-user-tie"></i> </div>
+                            <div class="btn-text">Data Science Consultant</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-database"></i> </div>
+                            <div class="btn-text">Data Analyst</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-microscope"></i></div>
+                            <div class="btn-text">Data Scientist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="center-content">
+                    <div class="image-container">
+                        <div class="zigzag-line zigzag-left"></div>
+                        <img src="https://www.trainingya.com/wp-content/uploads/2025/03/home.png"
+                            alt="Professional Woman" class="girl-image">
+                        <div class="ground-shadow"></div>
+                        <div class="floating-shape shape-1"></div>
+                        <div class="floating-shape shape-2"></div>
+                        <div class="floating-shape shape-3"></div>
+                        <div class="floating-shape shape-4"></div>
+                        <div class="zigzag-line zigzag-right"></div>
+                    </div>
+                </div>
+
+                <div class="btn-container right-buttons">
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <div class="btn-text">Machine Learning Specialist</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-dna"></i></div>
+                            <div class="btn-text">Data Science Specialist</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-gauge"></i></div>
+                            <div class="btn-text">Statistical Analyst</div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <div class="role-btn">
+                            <div class="btn-icon"><i class="fa-solid fa-file-lines"></i></div>
+                            <div class="btn-text">Business Analyst</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.role-btn');
+            const girlImage = document.querySelector('.girl-image');
+            const floatingShapes = document.querySelectorAll('.floating-shape');
+
+            // Apply subtle float animation to girl image
+            if (girlImage) {
+                girlImage.style.animation = 'float 2s ease-in-out infinite';
+            }
+
+            // Button hover effects
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 15px 35px rgba(255, 121, 1, 0.3), 0 8px 20px rgba(255, 121, 1, 0.2)';
+                });
+
+                button.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(255, 121, 1, 0.15)';
+                });
+            });
+
+            // Floating animation for shapes
+            window.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth - 0.5;
+                const y = e.clientY / window.innerHeight - 0.5;
+
+                // Move girl image slightly with mouse
+                if (girlImage) {
+                    girlImage.style.transform = `rotate(${x * 3}deg)`;
+                }
+
+                // Move shapes with mouse
+                floatingShapes.forEach((shape, index) => {
+                    const speed = 0.02 * (index + 1);
+                    shape.style.transform = `translate(${x * 30 * speed}px, ${y * 30 * speed}px)`;
+                });
+            });
+
+            // Add pulse animation to zigzag lines
+            const zigzagLines = document.querySelectorAll('.zigzag-line');
+            zigzagLines.forEach(line => {
+                line.style.animation = `pulse ${2 + Math.random() * 2}s infinite ease-in-out`;
+            });
+        });
+    </script>
+</body>
+</html>
